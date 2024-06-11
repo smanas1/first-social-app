@@ -3,6 +3,6 @@ import registerController from "../../controllers/registerController";
 
 const authRoutes = express.Router();
 
-authRoutes.get("/register", registerController);
+authRoutes.post("/register", registerController);
 
 export default authRoutes;
