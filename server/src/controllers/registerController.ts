@@ -86,7 +86,7 @@ const registerController = async (req: Request, res: Response) => {
           gender,
         });
 
-        user.save();
+        await user.save();
         var token = jwt.sign({ id: user._id }, process.env.JWT_KEY!, {
           expiresIn: "5m",
         });
