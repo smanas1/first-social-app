@@ -1,18 +1,34 @@
-import { ChangeEvent } from "react";
-
-interface InputProps {
+type InputProps = {
   type: string;
   placeholder: string;
-  onchange?: (e: ChangeEvent) => void;
-}
+  value: string;
+  name: string;
+  error?: string;
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  onChange: any;
+  onBlur: any;
+};
 
-const Input: React.FC<InputProps> = ({ type, placeholder, onchange }) => {
+const Input: React.FC<InputProps> = ({
+  type,
+  placeholder,
+  onChange,
+  value,
+  onBlur,
+  name,
+  error,
+}) => {
   return (
     <input
-      className="border-2 bg-transparent text-white w-80 outline-none border-green-500 my-2 py-2 px-2 rounded-md"
+      value={value}
+      onBlur={onBlur}
+      name={name}
+      className={`border bg-transparent w-80 outline-none ${
+        error && "border-red-500"
+      } border-green-500 my-2 py-2 px-2 rounded-sm`}
       type={type}
       placeholder={placeholder}
-      onChange={onchange}
+      onChange={onChange}
     />
   );
 };

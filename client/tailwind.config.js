@@ -10,6 +10,9 @@ export default {
       container: {
         center: true,
       },
+      fontFamily: {
+        gilroyNormal: ["Gilroy normal"],
+      },
     },
   },
   plugins: [],
