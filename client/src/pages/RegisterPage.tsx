@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import Input from "../components/auth/Input";
-import Option from "../components/auth/Option";
 import { signupValidator } from "../validation/registerValidation";
 const RegisterPage = () => {
   const initialState = {
@@ -9,6 +8,10 @@ const RegisterPage = () => {
     username: "",
     email: "",
     password: "",
+    bYear: new Date().getFullYear(),
+    bMonth: new Date().getMonth() + 1,
+    bDay: new Date().getDay(),
+    gender: "",
   };
 
   const formik = useFormik({
@@ -19,6 +22,18 @@ const RegisterPage = () => {
     },
   });
 
+  // Date
+
+  const tempYear = new Date().getFullYear();
+  const years = Array.from(new Array(105), (_value, index) => tempYear - index);
+  const month = Array.from(new Array(12), (_value, index) => index + 1);
+
+  const day = () => {
+    return new Date(formik.values.bYear, formik.values.bMonth, 0).getDate();
+  };
+
+  const days = Array.from(new Array(day()), (_value, index) => index + 1);
+  console.log(days);
   console.log(formik);
 
   return (
@@ -29,7 +44,7 @@ const RegisterPage = () => {
           <h3 className="font font-gilroyNormal font-bold text-3xl">
             Get started with easily register
           </h3>
-          <p className="text-gray-500 font-gilroyNormal font-semibold text-lg my-4">
+          <p className="text-gray-500   text-lg my-4">
             Free register and you can enjoy it
           </p>
 
@@ -95,13 +110,37 @@ const RegisterPage = () => {
               <p className="text-red-500">{formik.errors.password}</p>
             )}
             <p className="text-lg">Date Of Birth</p>
-            <div className="flex justify-between">
-              <label htmlFor="day">Day : </label>
-              <Option name="day" id="day" count={30} />
-              <label htmlFor="month">Month : </label>
-              <Option name="month" id="month" count={12} />
-              <label htmlFor="year">Year : </label>
-              <Option name="year" id="year" min={1950} count={2004} />
+            <div className="flex justify-between gap-1">
+              <div className="border p-1">
+                <label htmlFor="year">Year : </label>
+                <select name="year" id="year">
+                  {years.map((year, i) => (
+                    <option key={i} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="border p-1">
+                <label htmlFor="month">Month : </label>
+                <select name="month" id="month">
+                  {month.map((month, i) => (
+                    <option key={i} value={month}>
+                      {month}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="border p-1">
+                <label htmlFor="day">Day : </label>
+                <select name="day" id="day">
+                  {days.map((day, i) => (
+                    <option key={i} value={day}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="my-4">
               <input id="male" type="radio" name="gender" />

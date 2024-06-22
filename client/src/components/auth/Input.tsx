@@ -25,7 +25,7 @@ const Input: React.FC<InputProps> = ({
       name={name}
       className={`border bg-transparent w-80 outline-none ${
         error && "border-red-500"
-      } border-green-500 my-2 py-2 px-2 rounded-sm`}
+      }  my-2 py-2 px-2 rounded-sm`}
       type={type}
       placeholder={placeholder}
       onChange={onChange}
