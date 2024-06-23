@@ -33,9 +33,7 @@ const RegisterPage = () => {
   };
 
   const days = Array.from(new Array(day()), (_value, index) => index + 1);
-  console.log(days);
-  console.log(formik);
-
+  console.log(formik.errors);
   return (
     <div className=" h-screen">
       <div className="container">
@@ -143,18 +141,26 @@ const RegisterPage = () => {
               </div>
             </div>
             <div className="my-4">
-              <input id="male" type="radio" name="gender" />
-              <label className="mx-2" htmlFor="male">
-                Male
-              </label>
-              <input id="female" type="radio" name="gender" />
-              <label className="mx-2" htmlFor="female">
-                Female
-              </label>
-              <input id="other" type="radio" name="gender" />
-              <label className="mx-2" htmlFor="other">
-                Other
-              </label>
+              <fieldset
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+              >
+                <input id="male" value="male" type="radio" name="gender" />
+                <label className="mx-2" htmlFor="male">
+                  Male
+                </label>
+                <input id="female" value="female" type="radio" name="gender" />
+                <label className="mx-2" htmlFor="female">
+                  Female
+                </label>
+                <input id="other" value="other" type="radio" name="gender" />
+                <label className="mx-2" htmlFor="other">
+                  Other
+                </label>
+              </fieldset>
+              {formik.errors.gender && formik.touched.gender && (
+                <p className="text-red-500">{formik.errors.gender}</p>
+              )}
             </div>
             <button
               type="submit"

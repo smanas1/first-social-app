@@ -12,4 +12,5 @@ export const signupValidator = Yup.object({
     .max(50)
     .required("Please Enter Your Password"),
   email: Yup.string().email().required("Please Enter Your Valid Email"),
+  gender: Yup.string().required("Please Select Your Gender"),
 });
