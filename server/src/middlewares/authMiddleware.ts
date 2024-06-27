@@ -8,6 +8,9 @@ export const emailVerifyMiddleware = async (
 ) => {
   try {
     const user = await UserModel.findOne({ email: req.body.email });
+    if (!user) {
+      throw res.status(400).send("User not Exist");
+    }
     if (user?.verified == true) {
       next();
     } else {

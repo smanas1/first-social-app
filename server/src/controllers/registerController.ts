@@ -37,7 +37,9 @@ const registerController = async (req: Request, res: Response) => {
       return res.status(400).send("User Already Exists");
     }
     if (existiUsername?.username == username) {
-      return res.status(400).send("Username Already Exists Try another One");
+      return res
+        .status(400)
+        .send(`Username Already Exists Try another One ${username}`);
     }
     if (!emailValidator(email)) {
       return res.status(400).send("Invalid Email");

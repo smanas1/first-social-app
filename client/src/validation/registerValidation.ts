@@ -14,3 +14,11 @@ export const signupValidator = Yup.object({
   email: Yup.string().email().required("Please Enter Your Valid Email"),
   gender: Yup.string().required("Please Select Your Gender"),
 });
+
+export const loginValidator = Yup.object({
+  email: Yup.string().email().required("Please Enter Your Valid Email"),
+  password: Yup.string()
+    .min(6, "Password Must Be At Least 6 Character")
+    .max(50)
+    .required("Please Enter Your Password"),
+});
