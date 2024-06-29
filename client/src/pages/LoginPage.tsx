@@ -11,7 +11,7 @@ import { activeUser } from "../components/redux/userSlice";
 import { Helmet } from "react-helmet-async";
 
 const LoginPage = () => {
-  const [loginUser, { isLoading, error }] = useLoginUserMutation();
+  const [loginUser, { isLoading }] = useLoginUserMutation();
   const dispatch = useDispatch();
   const naivagate = useNavigate();
 
@@ -20,9 +20,9 @@ const LoginPage = () => {
       email: formik.values.email,
       password: formik.values.password,
     });
-    if (error) {
-      if ("data" in error) {
-        toast.error(error.data as string, {
+    if (loginMutation.error) {
+      if ("data" in loginMutation.error) {
+        return toast.error(loginMutation.error.data as string, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -32,14 +32,14 @@ const LoginPage = () => {
           progress: undefined,
           theme: "light",
         });
-        console.log(loginMutation);
-        return;
       }
     }
-    naivagate("/");
-    dispatch(activeUser(loginMutation.data));
-
-    localStorage.setItem("user", JSON.stringify(loginMutation.data));
+    if (loginMutation.data) {
+      naivagate("/");
+      dispatch(activeUser(loginMutation.data));
+      console.log(loginMutation.data);
+      localStorage.setItem("user", JSON.stringify(loginMutation.data));
+    }
   };
 
   const initialState = {
@@ -58,20 +58,20 @@ const LoginPage = () => {
   // Date
 
   return (
-    <div className=" h-screen">
+    <div className=" bg-[#DBEAFE] ">
       <Helmet>
         <title>Login</title>
       </Helmet>
       <ToastContainer />
-      <div className="container">
+      <div className="container flex h-screen justify-center items-center">
         <div className="flex flex-col items-center">
-          <img className="w-28" src="/social.png" alt="" />
-          <h3 className="font font-gilroyNormal font-bold text-3xl">Login</h3>
-          <p className="text-gray-500   text-lg my-4">
-            Free register and you can enjoy it
-          </p>
-
-          <form onSubmit={formik.handleSubmit} className="flex flex-col">
+          <form
+            onSubmit={formik.handleSubmit}
+            className="flex flex-col py-5 px-8 rounded-md shadow-xl bg-white"
+          >
+            <h3 className="font mb-3 text-center font-gilroyNormal font-bold text-3xl">
+              Login
+            </h3>
             <Input
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
@@ -113,7 +113,7 @@ const LoginPage = () => {
                 Login
               </button>
             )}
-            <p className="my-3">
+            <p className="my-3 text-center">
               Don't Have An Account?
               <Link className="text-blue-500 underline " to="/register">
                 Register

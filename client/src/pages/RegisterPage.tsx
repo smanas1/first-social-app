@@ -7,11 +7,12 @@ import { useAddUserMutation } from "../components/api/authApi";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 const RegisterPage = () => {
   const [ageError, setAgeError] = useState("");
-  const [addUser, { isLoading, error }] = useAddUserMutation();
+  const [addUser, { isLoading }] = useAddUserMutation();
+  const navigate = useNavigate();
 
   const registration = async () => {
     try {
@@ -27,9 +28,9 @@ const RegisterPage = () => {
         gender: formik.values.gender,
       });
 
-      if (error) {
-        if ("data" in error) {
-          toast.error(error.data as string, {
+      if (signUpMutation.error) {
+        if ("data" in signUpMutation.error) {
+          toast.error(signUpMutation.error.data as string, {
             position: "top-right",
             autoClose: 5000,
             hideProgressBar: false,
@@ -42,6 +43,21 @@ const RegisterPage = () => {
           console.log(signUpMutation);
           return;
         }
+      }
+      if (signUpMutation.data) {
+        toast.success("Sucess Please Verify Your Email", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 3500);
       }
     } catch (error) {
       console.log(error);
@@ -100,18 +116,16 @@ const RegisterPage = () => {
         <title>Register</title>
       </Helmet>
       <ToastContainer />
-      <div className=" h-screen">
-        <div className="container">
-          <div className="flex flex-col items-center">
-            <img className="w-28" src="/social.png" alt="" />
-            <h3 className="font font-gilroyNormal font-bold text-3xl">
-              Get started with easily register
-            </h3>
-            <p className="text-gray-500   text-lg my-4">
-              Free register and you can enjoy it
-            </p>
-
-            <form onSubmit={formik.handleSubmit} className="flex flex-col">
+      <div className=" bg-[#DBEAFE]">
+        <div className="container h-screen flex justify-center items-center">
+          <div className="flex flex-col items-center ">
+            <form
+              onSubmit={formik.handleSubmit}
+              className="flex flex-col rounded-md shadow-xl bg-white py-5 px-8"
+            >
+              <h3 className="font my-3  text-center font-gilroyNormal font-bold text-3xl">
+                Registration
+              </h3>
               <Input
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -172,40 +186,49 @@ const RegisterPage = () => {
               {formik.errors.password && formik.touched.password && (
                 <p className="text-red-500">{formik.errors.password}</p>
               )}
-              <p className="text-lg">Date Of Birth</p>
-              <Birthday
-                days={days}
-                month={month}
-                formik={formik}
-                years={years}
-              />
-              {ageError && <p className="text-red-500">{ageError}</p>}
-              <div className="my-4">
-                <fieldset
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                >
-                  <input id="male" value="male" type="radio" name="gender" />
-                  <label className="mx-2" htmlFor="male">
-                    Male
-                  </label>
-                  <input
-                    id="female"
-                    value="female"
-                    type="radio"
-                    name="gender"
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg my-2">Date Of Birth</p>
+                <div>
+                  <Birthday
+                    days={days}
+                    month={month}
+                    formik={formik}
+                    years={years}
                   />
-                  <label className="mx-2" htmlFor="female">
-                    Female
-                  </label>
-                  <input id="other" value="other" type="radio" name="gender" />
-                  <label className="mx-2" htmlFor="other">
-                    Other
-                  </label>
-                </fieldset>
-                {formik.errors.gender && formik.touched.gender && (
-                  <p className="text-red-500">{formik.errors.gender}</p>
-                )}
+                </div>
+                {ageError && <p className="text-red-500">{ageError}</p>}
+                <div className="my-4">
+                  <fieldset
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                  >
+                    <input id="male" value="male" type="radio" name="gender" />
+                    <label className="mx-2" htmlFor="male">
+                      Male
+                    </label>
+                    <input
+                      id="female"
+                      value="female"
+                      type="radio"
+                      name="gender"
+                    />
+                    <label className="mx-2" htmlFor="female">
+                      Female
+                    </label>
+                    <input
+                      id="other"
+                      value="other"
+                      type="radio"
+                      name="gender"
+                    />
+                    <label className="mx-2" htmlFor="other">
+                      Other
+                    </label>
+                  </fieldset>
+                  {formik.errors.gender && formik.touched.gender && (
+                    <p className="text-red-500">{formik.errors.gender}</p>
+                  )}
+                </div>
               </div>
               {isLoading ? (
                 <button
@@ -219,7 +242,7 @@ const RegisterPage = () => {
                   Sign Up
                 </button>
               )}
-              <p className="my-3">
+              <p className="my-3 text-center">
                 Alrady Have An Account?
                 <Link className="text-blue-500 underline " to="/login">
                   Login
