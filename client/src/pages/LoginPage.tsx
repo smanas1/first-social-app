@@ -11,7 +11,7 @@ import { activeUser } from "../components/redux/userSlice";
 import { Helmet } from "react-helmet-async";
 
 const LoginPage = () => {
-  const [loginUser, { isLoading }] = useLoginUserMutation();
+  const [loginUser, { isLoading, error }] = useLoginUserMutation();
   const dispatch = useDispatch();
   const naivagate = useNavigate();
 
@@ -20,24 +20,25 @@ const LoginPage = () => {
       email: formik.values.email,
       password: formik.values.password,
     });
-    if (loginMutation.error) {
-      toast.error(loginMutation.error.data, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-
-      return;
+    if (error) {
+      if ("data" in error) {
+        toast.error(error.data as string, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        console.log(loginMutation);
+        return;
+      }
     }
     naivagate("/");
     dispatch(activeUser(loginMutation.data));
 
-    console.log(loginMutation.data);
     localStorage.setItem("user", JSON.stringify(loginMutation.data));
   };
 

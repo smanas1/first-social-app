@@ -4,26 +4,48 @@ import { signupValidator } from "../validation/registerValidation";
 import { useState } from "react";
 import Birthday from "../components/auth/Birthday";
 import { useAddUserMutation } from "../components/api/authApi";
+import { ToastContainer, toast } from "react-toastify";
 
+import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 const RegisterPage = () => {
   const [ageError, setAgeError] = useState("");
-  const [addUser, { isLoading }] = useAddUserMutation();
+  const [addUser, { isLoading, error }] = useAddUserMutation();
 
   const registration = async () => {
-    const signUpMutation = await addUser({
-      fName: formik.values.firstName,
-      lName: formik.values.lastName,
-      username: formik.values.username,
-      email: formik.values.email,
-      password: formik.values.password,
-      bDay: formik.values.bDay,
-      bMonth: formik.values.bMonth,
-      bYear: formik.values.bYear,
-      gender: formik.values.gender,
-    });
-    console.log(signUpMutation);
+    try {
+      const signUpMutation = await addUser({
+        fName: formik.values.firstName,
+        lName: formik.values.lastName,
+        username: formik.values.username,
+        email: formik.values.email,
+        password: formik.values.password,
+        bDay: formik.values.bDay,
+        bMonth: formik.values.bMonth,
+        bYear: formik.values.bYear,
+        gender: formik.values.gender,
+      });
+
+      if (error) {
+        if ("data" in error) {
+          toast.error(error.data as string, {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+          console.log(signUpMutation);
+          return;
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const initialState = {
@@ -77,6 +99,7 @@ const RegisterPage = () => {
       <Helmet>
         <title>Register</title>
       </Helmet>
+      <ToastContainer />
       <div className=" h-screen">
         <div className="container">
           <div className="flex flex-col items-center">
