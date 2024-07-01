@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        "primary-bg": "var(--primary-bg)",
+        "primary-black": "var(--primary-black)",
         "primary-white": "var(--primary-white)",
       },
       container: {
@@ -16,4 +16,5 @@ export default {
     },
   },
   plugins: [],
+  darkMode: "class",
 };
