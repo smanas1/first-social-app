@@ -12,9 +12,9 @@ export const userData = {
 };
 
 export const menuData = [
-  { name: "News Feed", icon: NewsFeed },
-  { name: "Messages", icon: Messages },
-  { name: "Friends", icon: Friends },
-  { name: "Media", icon: Media },
+  { name: "News Feed", icon: NewsFeed, to: "/" },
+  { name: "Messages", icon: Messages, to: "/messages" },
+  { name: "Friends", icon: Friends, to: "/friends" },
+  { name: "Media", icon: Media, to: "/media" },
   { name: "Settings", icon: Settings },
 ];

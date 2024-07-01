@@ -1,9 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import LeftSide from "../components/Home/LeftSide/LeftSide";
+import Feeds from "../components/Home/Feeds/Feeds";
 
 const HomePage = () => {
   return (
-    <div className="bg-[#f4f7fe]">
+    <div className="bg-[#F4F7FE]">
       <Helmet>
         <title>Home</title>
       </Helmet>
@@ -12,7 +13,9 @@ const HomePage = () => {
         <div className=" ">
           <LeftSide />
         </div>
-        <div>asfas</div>
+        <div>
+          <Feeds />
+        </div>
         <div>asfas</div>
       </div>
     </div>
