@@ -20,26 +20,36 @@ const LeftMenu: React.FC<MenuProps> = ({ name, icon, to }) => {
   const Settings = name === "Settings" && (
     <div ref={clickOut}>
       <div onClick={() => setShow(true)}>
-        <div className="py-4  cursor-pointer rounded-lg group transition-all hover:bg-black  px-5 w-64">
+        <div
+          className={`py-4  cursor-pointer rounded-lg group transition-all hover:bg-black  px-5 w-64 ${
+            show && "bg-black"
+          }`}
+        >
           <div className="flex gap-x-4  items-center">
-            <div className="group-hover:text-white">
+            <div className={`group-hover:text-white ${show && "text-white"}`}>
               <MenuIcon />
             </div>
-            <h4 className="text-xl group-hover:text-white">{name}</h4>
+            <h4
+              className={`text-xl group-hover:text-white ${
+                show && "text-white"
+              }`}
+            >
+              {name}
+            </h4>
           </div>
         </div>
         <div>{show && <SettingOption />}</div>
       </div>
     </div>
   );
-  console.log(show);
+
   return (
     <>
       {Settings ? (
         Settings
       ) : (
         <NavLink to={to !== undefined ? to : "/"}>
-          <div className="py-4  cursor-pointer rounded-lg group transition-all hover:bg-black  px-5 w-64">
+          <div className="py-4 mb-3  cursor-pointer rounded-lg group transition-all hover:bg-black  px-5 w-64">
             <div className="flex gap-x-4  items-center">
               <div className="group-hover:text-white">
                 <MenuIcon />

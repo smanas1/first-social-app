@@ -1,18 +1,9 @@
 import { useSelector } from "react-redux";
 import { menuData, userData } from "../data";
 import LeftMenu from "./LeftMenu";
-// import { CiLogout } from "react-icons/ci";
-// import { logoutUser } from "../../redux/userSlice";
-// import { useNavigate } from "react-router-dom";
+
 const LeftSide = () => {
   const user = useSelector((state: any) => state.user.user);
-  // const dispatch = useDispatch();
-  // const navigate = useNavigate();
-  // const handleLogOut = () => {
-  //   localStorage.removeItem("user");
-  //   dispatch(logoutUser());
-  //   navigate("/login");
-  // };
 
   return (
     <div className=" ">
@@ -35,15 +26,7 @@ const LeftSide = () => {
             <LeftMenu to={item.to} key={i} name={item.name} icon={item.icon} />
           ))}
         </div>
-        <div>
-          {/* <div
-            onClick={handleLogOut}
-            className="flex mb-4 cursor-pointer  bg-red-500 text-white px-5 rounded-md py-2 items-center"
-          >
-            <CiLogout size={30} />
-            <h4 className="text-lg">Logout</h4>
-          </div> */}
-        </div>
+        <div></div>
       </div>
     </div>
   );
