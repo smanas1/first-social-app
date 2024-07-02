@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet-async";
 import LeftSide from "../components/Home/LeftSide/LeftSide";
 import Feeds from "../components/Home/Feeds/Feeds";
 import { useEffect, useState } from "react";
+import RightSide from "../components/Home/RightSide/RightSide";
 
 const HomePage = () => {
   const [theme, setTheme] = useState("");
@@ -30,7 +31,9 @@ const HomePage = () => {
         <div>
           <Feeds />
         </div>
-        <div>asfas</div>
+        <div>
+          <RightSide />
+        </div>
       </div>
     </div>
   );
