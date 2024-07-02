@@ -7,7 +7,7 @@ const FriendRequest = () => {
           See All
         </button>
       </div>
-      <div className="mt-8">
+      <div className="mt-5">
         <div>
           <div className="flex ">
             <img
@@ -17,7 +17,7 @@ const FriendRequest = () => {
             />
 
             <div className="ms-3">
-              <p className="text-lg  font-medium">Sadi Bolod</p>
+              <p className="text-lg  font-medium">Munny Slow</p>
               <span className="text-sm text-gray-500">1 week ago</span>
               <div className="flex   mt-4">
                 <button className="py-2 me-3 bg-blue-500 rounded-full text-white px-7 border">
