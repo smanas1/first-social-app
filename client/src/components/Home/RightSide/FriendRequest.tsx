@@ -7,7 +7,7 @@ const FriendRequest = () => {
           See All
         </button>
       </div>
-      <div className="mt-5">
+      <div className="mt-5 ">
         <div>
           <div className="flex ">
             <img

@@ -5,7 +5,7 @@ import { userData } from "../data";
 
 const PostHome = () => {
   return (
-    <div className="w-full bg-[#d3e0ff] rounded-md py-5 px-7">
+    <div className="w-full bg-[#dee8ff] rounded-md py-5 px-7">
       <div className="flex bg-[#F4F7FE]  transition-all hover:bg-[#edf2ff] px-2 py-1 rounded-full gap-3 items-center">
         <img
           className="w-10  h-10 rounded-full object-cover"

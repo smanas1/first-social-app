@@ -7,7 +7,7 @@ import { Navigation, History } from "swiper/modules";
 import { storiesData } from "../data";
 const Stories = () => {
   return (
-    <div className="mt-10">
+    <div className="mt-4 pt-4 border-t">
       <h3 className="text-lg font-medium mb-3">Stories</h3>
       <Swiper
         spaceBetween={10}
@@ -29,7 +29,7 @@ const Stories = () => {
             className="h-60 bg-no-repeat  rounded-md"
           >
             <img
-              className="h-12 w-12 border-2
+              className="h-12 w-12 border-2 border-white
                rounded-full object-cover mt-2 ms-2"
               src={item.picture}
               alt="story"

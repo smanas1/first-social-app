@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import NotLoginUser from "./privateRoutes/NotLoginUser";
 import LoginUser from "./privateRoutes/LoginUser";
+import CreatePost from "./components/Home/Post/CreatePost";
 
 function App() {
   const router = createBrowserRouter(
@@ -27,6 +28,7 @@ function App() {
   );
   return (
     <>
+      <CreatePost />
       <RouterProvider router={router} />
     </>
   );
