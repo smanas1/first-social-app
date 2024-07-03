@@ -3,6 +3,7 @@ import LeftSide from "../components/Home/LeftSide/LeftSide";
 import Feeds from "../components/Home/Feeds/Feeds";
 import { useEffect, useState } from "react";
 import RightSide from "../components/Home/RightSide/RightSide";
+import PostHome from "../components/Home/Post/PostHome";
 
 const HomePage = () => {
   const [theme, setTheme] = useState("");
@@ -30,6 +31,7 @@ const HomePage = () => {
         </div>
         <div>
           <Feeds />
+          <PostHome />
         </div>
         <div>
           <RightSide />
