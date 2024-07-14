@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import OutSideClick from "../../../functions/clickOutSide";
 import SettingOption from "./Setting/SettingOption";
+
 interface MenuProps {
   name: string;
   icon: React.FC;
