@@ -10,6 +10,26 @@ const CreatePost = () => {
   const [emoji, setEmoji] = useState(false);
   const [text, setText] = useState("");
   const [imageShow, setImageShow] = useState(true);
+  const [image, setImage] = useState<any[]>([]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files;
+    if (file !== null) {
+      const fileArray = Array.from(file);
+      fileArray.forEach((img) => {
+        if (img.type === "image/png" || img.type === "image/jpeg") {
+          const renderFiles = new FileReader();
+          renderFiles.readAsDataURL(img);
+          renderFiles.onload = (renderImage: ProgressEvent<FileReader>) => {
+            setImage((images) => [...images, renderImage.target?.result]);
+          };
+        } else {
+          console.log("non supported image");
+        }
+      });
+    }
+    console.log(image);
+  };
 
   const choseRef = useRef<HTMLInputElement>(null);
   const onEmojiClick = (emojiObject: EmojiClickData) => {
@@ -125,7 +145,13 @@ const CreatePost = () => {
           Post
         </button>
       </div>
-      <input hidden type="file" accept="image/png, image/jpeg" ref={choseRef} />
+      <input
+        onChange={handleChange}
+        hidden
+        type="file"
+        accept="image/png, image/jpeg"
+        ref={choseRef}
+      />
     </div>
   );
 };
