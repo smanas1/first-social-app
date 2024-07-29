@@ -56,19 +56,23 @@ export const emailVerifyController = async (req: Request, res: Response) => {
     const user = await UserModel.findById({ _id: decoded.id });
 
     if (user!.verified == true) {
-      throw res.status(200).send("Email Already Verified");
+      return res.status(200).json("Email Already Verified");
     } else {
       try {
         await UserModel.findByIdAndUpdate(
           { _id: decoded.id },
           { verified: true }
         );
-        res.status(200).send("Email Verify Sucessfully");
+        return res.status(200).json("Email Verify Sucessfully");
       } catch (error) {
-        throw res.status(400).send("Initial Server Errror");
+        return res.status(400).send("Initial Server Errror");
       }
     }
   } catch (error) {
-    res.status(400).send(error.message);
+    return res.status(400).send("Your Link is Expired Or Invalid");
   }
+};
+// Middleware
+export const auth = (req: Request, res: Response) => {
+  res.send("Welcome middleware");
 };

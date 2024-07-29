@@ -6,6 +6,9 @@ import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react";
 import { Media } from "../../../assets/images/Media";
 import { LiveIcon } from "../../../assets/images/Live";
 import { CircleProfileIcon } from "../../../assets/images/Circleprofile";
+import { BiCloset } from "react-icons/bi";
+import { GrClose } from "react-icons/gr";
+import { MdClose } from "react-icons/md";
 const CreatePost = () => {
   const [emoji, setEmoji] = useState(false);
   const [text, setText] = useState("");
@@ -30,11 +33,16 @@ const CreatePost = () => {
     }
   };
 
+  const handleImageClose = () => {
+    setImageShow(false);
+    setImage([]);
+  };
+
   const choseRef = useRef<HTMLInputElement>(null);
   const onEmojiClick = (emojiObject: EmojiClickData) => {
     setText((prevInput) => prevInput + emojiObject.emoji);
   };
-  console.log(image);
+  console.log(image.length);
   return (
     <div className="absolute h-screen z-40 w-full flex justify-center items-center  bg-black bg-opacity-30 ">
       <div className="py-3 px-4 w-[500px] bg-white rounded-md">
@@ -138,7 +146,7 @@ const CreatePost = () => {
                 >
                   {image.slice(0, 4).map((img, index) => (
                     <img
-                      className="object-cover"
+                      className="-cover"
                       key={index}
                       src={img}
                       alt="post image"
@@ -162,22 +170,31 @@ const CreatePost = () => {
                 </div>
               )}
               <div
-                onClick={() => setImageShow(false)}
+                onClick={handleImageClose}
                 className={`${
-                  image.length && "text-white"
-                } flex absolute top-1 cursor-pointer right-1 justify-center items-center text-gray-400`}
+                  image.length && ""
+                } flex absolute bg-white rounded-full text-black top-1 cursor-pointer shadow right-1 justify-center items-center  `}
               >
-                <CircleCloseIcon />
+                <MdClose size={25} />
               </div>
               {image.length ? (
                 <div
                   onClick={() => choseRef.current?.click()}
                   className={`${
                     image.length && "text-black"
-                  } flex absolute top-2 cursor-pointer left-1 justify-center items-center py-1 px-2 rounded bg-white`}
+                  } flex absolute top-2 cursor-pointer left-1 justify-center items-center shadow py-1 px-2 rounded bg-white`}
                 >
                   <Media />
                   <span className="ms-2">Add Photos/Videos</span>
+                </div>
+              ) : null}
+              {image.length >= 5 ? (
+                <div
+                  className={`${
+                    image.length && "text-black"
+                  } flex absolute shadow bottom-3 cursor-pointer right-3 justify-center items-center text-xl py-1 px-2 rounded bg-white`}
+                >
+                  +{image.length - 4}
                 </div>
               ) : null}
             </div>

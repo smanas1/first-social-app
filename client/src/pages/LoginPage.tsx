@@ -115,7 +115,7 @@ const LoginPage = () => {
             )}
             <p className="my-3 text-center">
               Don't Have An Account?
-              <Link className="text-blue-500 underline " to="/register">
+              <Link className="text-blue-500 underline ms-1" to="/register">
                 Register
               </Link>
             </p>

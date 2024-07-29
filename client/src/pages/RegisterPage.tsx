@@ -244,7 +244,7 @@ const RegisterPage = () => {
               )}
               <p className="my-3 text-center">
                 Alrady Have An Account?
-                <Link className="text-blue-500 underline " to="/login">
+                <Link className="text-blue-500 ms-1 underline " to="/login">
                   Login
                 </Link>
               </p>

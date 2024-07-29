@@ -20,7 +20,18 @@ export const authApi = createApi({
         body,
       }),
     }),
+    emailVerify: builder.mutation({
+      query: ({ token }) => ({
+        url: "/api/v1/auth/emailverify",
+        method: "POST",
+        body: { token },
+      }),
+    }),
   }),
 });
 
-export const { useAddUserMutation, useLoginUserMutation } = authApi;
+export const {
+  useAddUserMutation,
+  useLoginUserMutation,
+  useEmailVerifyMutation,
+} = authApi;
