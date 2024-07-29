@@ -28,13 +28,13 @@ const CreatePost = () => {
         }
       });
     }
-    console.log(image);
   };
 
   const choseRef = useRef<HTMLInputElement>(null);
   const onEmojiClick = (emojiObject: EmojiClickData) => {
     setText((prevInput) => prevInput + emojiObject.emoji);
   };
+  console.log(image);
   return (
     <div className="absolute h-screen z-40 w-full flex justify-center items-center  bg-black bg-opacity-30 ">
       <div className="py-3 px-4 w-[500px] bg-white rounded-md">
@@ -117,27 +117,69 @@ const CreatePost = () => {
           </>
         ) : (
           <div className="border">
-            <div className="py-16 relative m-1  flex justify-center items-center bg-gray-100">
-              <div
-                className="flex flex-col items-center"
-                onClick={() => choseRef.current?.click()}
-              >
+            <div
+              className={` ${
+                image.length
+                  ? "py-0 relative"
+                  : "relative m-1 py-16 flex justify-center items-center bg-gray-100"
+              } `}
+            >
+              {image && image.length ? (
                 <div
-                  className="
+                  className={`${
+                    image.length === 2
+                      ? "grid overflow-hidden w-full h-full grid-cols-2 gap-2 "
+                      : image.length === 3
+                      ? "grid overflow-hidden w-full h-full grid-cols-2 gap-2"
+                      : image.length === 4
+                      ? "grid overflow-hidden w-full h-full grid-cols-2 gap-2"
+                      : "grid overflow-hidden w-full h-full grid-cols-2 gap-2"
+                  }`}
+                >
+                  {image.slice(0, 4).map((img, index) => (
+                    <img
+                      className="object-cover"
+                      key={index}
+                      src={img}
+                      alt="post image"
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div
+                  className="flex flex-col items-center"
+                  onClick={() => choseRef.current?.click()}
+                >
+                  <div
+                    className="
                 flex
                 justify-center items-center bg-primary-black text-white p-1 rounded-full"
-                >
-                  <Media />
+                  >
+                    <Media />
+                  </div>
+                  <h3 className="py-1">Add Photo/Video</h3>
+                  <span className="text-[12px]">or drag and drop</span>
                 </div>
-                <h3 className="py-1">Add Photo/Video</h3>
-                <span className="text-[12px]">or drag and drop</span>
-              </div>
+              )}
               <div
                 onClick={() => setImageShow(false)}
-                className="flex absolute top-1 cursor-pointer right-1 justify-center items-center text-gray-400"
+                className={`${
+                  image.length && "text-white"
+                } flex absolute top-1 cursor-pointer right-1 justify-center items-center text-gray-400`}
               >
                 <CircleCloseIcon />
               </div>
+              {image.length ? (
+                <div
+                  onClick={() => choseRef.current?.click()}
+                  className={`${
+                    image.length && "text-black"
+                  } flex absolute top-2 cursor-pointer left-1 justify-center items-center py-1 px-2 rounded bg-white`}
+                >
+                  <Media />
+                  <span className="ms-2">Add Photos/Videos</span>
+                </div>
+              ) : null}
             </div>
           </div>
         )}
@@ -148,6 +190,7 @@ const CreatePost = () => {
       <input
         onChange={handleChange}
         hidden
+        multiple
         type="file"
         accept="image/png, image/jpeg"
         ref={choseRef}
