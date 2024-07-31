@@ -4,10 +4,13 @@ import Feeds from "../components/Home/Feeds/Feeds";
 import { useEffect, useState } from "react";
 import RightSide from "../components/Home/RightSide/RightSide";
 import PostHome from "../components/Home/Post/PostHome";
+import VerifyCheck from "../components/Home/Feeds/VerifyCheck";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
   const [theme, setTheme] = useState("");
   const element = document.documentElement;
+  const user = useSelector((state: any) => state.user.user);
 
   useEffect(() => {
     if (localStorage.theme == "dark") {
@@ -31,6 +34,7 @@ const HomePage = () => {
         </div>
         <div>
           <Feeds />
+          {!user.verify && <VerifyCheck />}
           <PostHome />
         </div>
         <div>
