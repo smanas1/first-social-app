@@ -15,7 +15,7 @@ const EmailActiveCheck = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const [emailVerify, { error, data }] = useEmailVerifyMutation();
-  // const [error, setError] = useState<any>();
+
   const user = useSelector((state: any) => state.user.user);
 
   useEffect(() => {
@@ -44,6 +44,7 @@ const EmailActiveCheck = () => {
       console.log(error);
     }
   };
+
   return (
     <div className="bg-[#F4F7FE] dark:bg-primary-black ">
       <Helmet>

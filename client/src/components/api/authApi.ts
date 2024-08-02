@@ -27,6 +27,13 @@ export const authApi = createApi({
         body: { token },
       }),
     }),
+    reEmailVerify: builder.mutation({
+      query: ({ token }) => ({
+        url: "/api/v1/auth/reemailverify",
+        method: "POST",
+        body: { token },
+      }),
+    }),
   }),
 });
 
@@ -34,4 +41,5 @@ export const {
   useAddUserMutation,
   useLoginUserMutation,
   useEmailVerifyMutation,
+  useReEmailVerifyMutation,
 } = authApi;
