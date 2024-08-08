@@ -34,7 +34,7 @@ const HomePage = () => {
         </div>
         <div>
           <Feeds />
-          {!user.verify && <VerifyCheck />}
+          {!user.verifyed && <VerifyCheck />}
           <PostHome />
         </div>
         <div>

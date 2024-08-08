@@ -45,7 +45,7 @@ const registerController = async (req: Request, res: Response) => {
       return res.status(400).send("Invalid Email");
     }
 
-    if (!nameValidator(fName, 2, 7)) {
+    if (!nameValidator(fName, 2, 15)) {
       return res
         .status(400)
         .send(
@@ -53,7 +53,7 @@ const registerController = async (req: Request, res: Response) => {
         );
     }
 
-    if (!nameValidator(lName, 3, 7)) {
+    if (!nameValidator(lName, 3, 15)) {
       return res
         .status(400)
         .send(
@@ -61,7 +61,7 @@ const registerController = async (req: Request, res: Response) => {
         );
     }
 
-    if (!nameValidator(username, 3, 7)) {
+    if (!nameValidator(username, 3, 15)) {
       return res
         .status(400)
         .send("Username must be minimum 3 characters and maximum 7 characters");
@@ -90,7 +90,7 @@ const registerController = async (req: Request, res: Response) => {
 
         await user.save();
         var token = jwt.sign({ id: user._id }, process.env.JWT_KEY!, {
-          expiresIn: "5m",
+          expiresIn: "1h",
         });
         await transporter.sendMail({
           from: "Social", // sender address

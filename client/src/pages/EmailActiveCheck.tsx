@@ -4,22 +4,24 @@ import Feeds from "../components/Home/Feeds/Feeds";
 import { useEffect } from "react";
 import RightSide from "../components/Home/RightSide/RightSide";
 import PostHome from "../components/Home/Post/PostHome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEmailVerifyMutation } from "../components/api/authApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import { FcApproval, FcAbout } from "react-icons/fc";
+import { activeUser } from "../components/redux/userSlice";
 
 const EmailActiveCheck = () => {
   const { token } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [emailVerify, { error, data }] = useEmailVerifyMutation();
 
   const user = useSelector((state: any) => state.user.user);
 
   useEffect(() => {
-    activeUser();
+    activeUsers();
   }, []);
 
   const getErrorMessage = (
@@ -30,15 +32,19 @@ const EmailActiveCheck = () => {
     }
   };
 
-  const activeUser = async () => {
+  const activeUsers = async () => {
     try {
       const result = await emailVerify({
         token,
         userToken: user.token,
       });
-
+     
+ 
       if (result.data) {
+        localStorage.setItem("user", JSON.stringify({...user,verifyed:true}))
+        dispatch(activeUser({...user,verifyed:true}))
         navigate("/");
+        
       }
     } catch (error) {
       console.log(error);

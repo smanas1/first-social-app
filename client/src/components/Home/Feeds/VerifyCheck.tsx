@@ -1,16 +1,18 @@
 
 import { FcHighPriority } from "react-icons/fc";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useReEmailVerifyMutation } from "../../api/authApi";
 import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
+
 const VerifyCheck = () => {
  
   const user = useSelector((state: any) => state.user.user);
-  const [reEmailVarification,{isLoading,error,data}] = useReEmailVerifyMutation()
+  const [reEmailVerify,{isLoading,error,data}] = useReEmailVerifyMutation()
+
 
   useEffect(() => {
     toast.success(data , {
@@ -26,7 +28,8 @@ const VerifyCheck = () => {
   }, [data]);
   const handleSend = async () => {
     try {
-      await reEmailVarification({token: user.token });
+      await reEmailVerify({token: user.token });
+      
      
       
     } catch (err) {

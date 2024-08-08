@@ -61,17 +61,20 @@ export const loginController = async (req: Request, res: Response) => {
 export const emailVerifyController = async (req: Request, res: Response) => {
   try {
     const { token } = req.body;
+    
 
     const decoded = jwt.verify(token, process.env.JWT_KEY!) as JwtPayload;
+    const decodedid = jwt.verify(decoded.id, process.env.JWT_KEY!) as JwtPayload;
+    console.log(decodedid.id)
 
-    const user = await UserModel.findById({ _id: decoded.id });
+    const user = await UserModel.findById({ _id: decodedid.id });
 
-    if (user!.verified == true) {
+    if (user?.verified == true) {
       return res.status(200).json("Email Already Verified");
     } else {
       try {
         await UserModel.findByIdAndUpdate(
-          { _id: decoded.id },
+          { _id: decodedid.id },
           { verified: true }
         );
         return res.status(200).json("Email Verify Sucessfully");
@@ -91,14 +94,17 @@ export const reEmailVerify = async(req:Request,res:Response) => {
 
 try {
   var decoded = jwt.verify(req.body.token, process.env.JWT_KEY!) as JwtPayload;
-  const user = await UserModel.findById(decoded.id  )
+ 
+  const user = await UserModel.findById({_id:decoded.id})
+  
   if (!user) {
     return res.status(404).send("User Not Found");
   }
   if(user.verified === true){
     return res.status(400).send("Email already verified")
   }
-  const token = jwt.sign({id: req.params.id},process.env.JWT_KEY!,{expiresIn:"1h"})
+  const token = jwt.sign({id: req.body.token},process.env.JWT_KEY!,{expiresIn:"1h"})
+
 
   await transporter.sendMail({
     from: "Social", // sender address
