@@ -119,6 +119,8 @@ const LoginPage = () => {
                 Register
               </Link>
             </p>
+
+            <Link to='/forgetpassword' className="text-blue-500 underline text-center">Forgotten password?</Link>
           </form>
         </div>
       </div>
