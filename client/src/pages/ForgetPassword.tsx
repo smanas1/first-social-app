@@ -1,18 +1,23 @@
+import { useState } from "react";
+import ForgetPasswordSecrion from "../components/ForgetPassword/ForgetPasswordSecrion";
 
 const ForgetPassword = () => {
+  const [section, setSection] = useState(0);
+  const renderComponent = () => {
+    switch (section) {
+      case 0:
+        return <ForgetPasswordSecrion />;
+      case 1:
+        return "Section 2";
+      default:
+        null;
+    }
+  };
   return (
     <div className="bg-blue-200 w-full h-screen flex justify-center items-center">
-      <div className="bg-white py-5 px-3 w-80 rounded">
-        <h1 className=" font-semibold">Find Your Account</h1>
-        <p className="text-gray-500 py-2">Please enter your email or phone to find your account</p>
-        <input type="text" placeholder="Email or phone" className="border py-1 px-2 my-3 w-full rounded-sm"/>
-      <div className="pt-2">
-        <button className="bg-gray-200  py-1 rounded px-4">Cancel</button>
-        <button className="bg-blue-500  py-1 rounded px-4 text-white ms-4">Submit</button>
-      </div>
-      </div>
+      {renderComponent()}
     </div>
-  )
-}
+  );
+};
 
-export default ForgetPassword
+export default ForgetPassword;
