@@ -6,13 +6,11 @@ import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react";
 import { Media } from "../../../assets/images/Media";
 import { LiveIcon } from "../../../assets/images/Live";
 import { CircleProfileIcon } from "../../../assets/images/Circleprofile";
-import { BiCloset } from "react-icons/bi";
-import { GrClose } from "react-icons/gr";
 import { MdClose } from "react-icons/md";
 const CreatePost = () => {
   const [emoji, setEmoji] = useState(false);
   const [text, setText] = useState("");
-  const [imageShow, setImageShow] = useState(true);
+  const [imageShow, setImageShow] = useState(false);
   const [image, setImage] = useState<any[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,7 +127,7 @@ const CreatePost = () => {
               className={` ${
                 image.length
                   ? "py-0 relative"
-                  : "relative m-1 py-16 flex justify-center items-center bg-gray-100"
+                  : "relative m-1 cursor-pointer py-16 flex justify-center items-center bg-gray-100"
               } `}
             >
               {image && image.length ? (

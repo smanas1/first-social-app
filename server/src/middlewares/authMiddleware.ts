@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { UserModel } from "../models/userModel";
 import jwt from "jsonwebtoken";
 
 export const authUser = async (
@@ -10,12 +9,13 @@ export const authUser = async (
   try {
     const token = req.headers.authorization;
     if (!token) {
-      throw res.status(401).send("Token is required");
+      return res.status(401).send("Token is required");
     }
-    jwt.verify(token, process.env.JWT_KEY as string, function (err, decoded) {
+    jwt.verify(token, process.env.JWT_KEY as string, function (err, user) {
       if (err) {
-        throw res.status(401).send("Token is not valid");
+        return res.status(401).send("Token is not valid");
       }
+      (req as any).user = user; // Add (req as any) to bypass the type checking
       next();
     });
   } catch (error) {}

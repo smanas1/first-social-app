@@ -11,6 +11,7 @@ import NotLoginUser from "./privateRoutes/NotLoginUser";
 import LoginUser from "./privateRoutes/LoginUser";
 import EmailActiveCheck from "./pages/EmailActiveCheck";
 import ForgetPassword from "./pages/ForgetPassword";
+import CreatePost from "./components/Home/Post/CreatePost";
 
 function App() {
   const router = createBrowserRouter(
@@ -31,6 +32,7 @@ function App() {
   );
   return (
     <>
+      <CreatePost />
       <RouterProvider router={router} />
     </>
   );
